@@ -1,6 +1,3 @@
-kresd_enable="YES"
-krescachegc_enable="YES"
-krescachegc_millis="1000"
 dnsproxy_enable="YES"
 dnsproxy_address="127.0.0.4"
 # to dnscrypt-proxy

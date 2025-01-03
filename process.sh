@@ -9,6 +9,6 @@ service kresd start
 
 
 pfctl -t antizapret -T add -f result/blocked-ranges.txt
-
+pfctl -t antizapret -T add -f result/iplist_blockedbyip.txt
 
 exit 0

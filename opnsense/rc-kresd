@@ -1,0 +1,3 @@
+kresd_enable="YES"
+krescachegc_enable="YES"
+krescachegc_millis="1000"

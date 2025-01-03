@@ -47,5 +47,7 @@
 Установика и сборка пакетов
 ```
 opnsense-code ports && cd /usr/ports/dns/knot-resolver/ && make install
+opnsense-code ports && cd /usr/ports/lang/gawk/ && make install
+opnsense-code ports && cd /usr/ports/dns/py-dnslib/ && make install
 ```
 Склонируйте git-репозиторий, отредактируйте **config/config.sh**, **doall.sh** и **process.sh** под собственные нужды, запустите **doall.sh**.
