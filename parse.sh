@@ -16,7 +16,6 @@ awk -F ';' '{print $2}' temp/list.csv | sort -u | awk '/^$/ {next} /\\/ {next} /
 
 for file in config/custom/{include,exclude}-{hosts,ips}-custom.txt; do
     basename=$(basename $file | sed 's|-custom.txt||')
-    echo "sort -u $file config/${basename}-dist.txt"
     sort -u $file config/${basename}-dist.txt | uniq | awk 'NF' > temp/${basename}.txt
 done
 sort -u temp/include-hosts.txt result/hostlist_original.txt > temp/hostlist_original_with_include.txt
@@ -34,7 +33,7 @@ then
 fi
 
 # Generate a list of IP addresses
-awk -F';' '$1 ~ /\// {print $1}' temp/list.csv | grep -P '([0-9]{1,3}\.){3}[0-9]{1,3}\/[0-9]{1,2}' -o | sort -Vu > result/iplist_special_range.txt
+awk -F';' '$1 ~ /\// {print $1}' temp/list.csv | perl -n -e 'print "$1\n" while /(([0-9]{1,3}\.){3}[0-9]{1,3}\/[0-9]{1,2})/g' | sort -Vu > result/iplist_special_range.txt
 
 awk -F ';' '($1 ~ /^([0-9]{1,3}\.){3}[0-9]{1,3}/) {gsub(/\|/, RS, $1); print $1}' temp/list.csv | \
     awk '/^([0-9]{1,3}\.){3}[0-9]{1,3}$/' | sort -u > result/iplist_all.txt
