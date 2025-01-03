@@ -1,5 +1,3 @@
-@include "config/exclude-regexp-dist.awk"
-
 # Skipping empty strings
 (!$1) {next}
 
