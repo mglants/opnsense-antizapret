@@ -1,4 +1,4 @@
 dnsproxy_enable="YES"
-dnsproxy_address="127.0.0.4"
+dnsproxy_port="5355"
 # to dnscrypt-proxy
 dnsproxy_upstream="127.0.0.1:5353"

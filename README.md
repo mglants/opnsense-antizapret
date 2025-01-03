@@ -1,15 +1,15 @@
 Черновой вариант работы АнтиЗапрет на OPNSense.
 
 Логика работы:
-- при запросе DNS, если адрес есть в чёрном списке, knot-resolver оптправляет запрос на 127.0.0.4:53, на котором висит dns-proxy.py
+
+- при запросе DNS, если адрес есть в чёрном списке, knot-resolver оптправляет запрос на 127.0.0.1:5355, на котором висит dns-proxy.py
 - dns-proxy.py запрашивает IP адрес у DNSCrypt-Proxy и добавляет этот адрес в таблицу antizapret и возвращаяет knot-resolver
 - весь трафик, подпадающий под адреса в таблице antizapret, отправляется в VPN средствами opnsense
 
 Недостающие компоненты собираются из ports или устанавливаются через pkg install
 
-### Необходимо:
+### Необходимо
 
-- создать loopback интерфейс 127.0.0.4
 - настроить DNSCrypt-Proxy на 127.0.0.1:5353
 - создать в firewall aliases таблицу antizapret
 - поднять vpn (например, wireguard) и настроить маршрутизацию черезе vpn для адресов назначения из таблицы antizapret
@@ -17,12 +17,12 @@
 - настроить knot-resolver
 - добавить в планировщик вызов скрипта doall.sh укаждые несколько часов.
 
-### Основано на:
+### Основано на
 
-- https://github.com/GubernievS/AntiZapret-VPN-Container
-- https://bitbucket.org/anticensority/antizapret-vpn-container
-- https://bitbucket.org/anticensority/antizapret-pac-generator-light
-- https://github.com/Limych/antizapret/
+- <https://github.com/GubernievS/AntiZapret-VPN-Container>
+- <https://bitbucket.org/anticensority/antizapret-vpn-container>
+- <https://bitbucket.org/anticensority/antizapret-pac-generator-light>
+- <https://github.com/Limych/antizapret/>
 
 ### Зависимости
 
@@ -44,10 +44,19 @@
 - **config.sh** — файл с адресами прокси и прочей конфигурацией.
 
 ### Установка и запуск
+
+Склонируйте git-репозиторий, отредактируйте **config/config.sh**, **doall.sh** и **process.sh** под собственные нужды, запустите **doall.sh**.
+
 Установика и сборка пакетов
 ```
 opnsense-code ports && cd /usr/ports/dns/knot-resolver/ && make install
 opnsense-code ports && cd /usr/ports/lang/gawk/ && make install
 opnsense-code ports && cd /usr/ports/dns/py-dnslib/ && make install
 ```
-Склонируйте git-репозиторий, отредактируйте **config/config.sh**, **doall.sh** и **process.sh** под собственные нужды, запустите **doall.sh**.
+
+Измените **opnsense/kresd.conf** под собственные нужны и скопируйте в /usr/local/etc/knot-resolver
+
+Выполните установочный скрипт
+```
+bash opnsense/install.sh
+```

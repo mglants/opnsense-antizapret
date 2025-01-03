@@ -12,7 +12,7 @@ rcvar="dnsproxy_enable"
 load_rc_config $name
 
 : ${dnsproxy_enable:="NO"}
-: ${dnsproxy_address:="127.0.0.4"}
+: ${dnsproxy_address:="127.0.0.1"}
 : ${dnsproxy_port:="53"}
 : ${dnsproxy_upstream:="8.8.8.8:53"}
 : ${dnsproxy_timeout:="5"}
@@ -41,4 +41,3 @@ dnsproxy_stop() {
 }
 
 run_rc_command "$1"
-
